@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition>
+        <f:selectItem itemValue="0" itemLabel="#{msg.select}"/>
+        <f:selectItem itemValue="1" itemLabel="#{msg['search_all']}"/>
+        <f:selectItem itemValue="2" itemLabel="#{msg['search_name']}"/>
+        <f:selectItem itemValue="3" itemLabel="#{msg['search_experience']}"/>
+        <f:selectItem itemValue="4" itemLabel="#{msg['search_availability']}"/>
+    </ui:composition>
+
+</html>

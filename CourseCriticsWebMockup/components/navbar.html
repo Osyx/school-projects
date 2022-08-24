@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+            <img id="brand" src="resources/icon.png" alt="Icon">
+        </a>
+        <p class="navbar-text">CourseCritics</p>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul id="navbar-items" class="nav navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="courses.html">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="review.html">Review</a>
+                </li>
+            </ul>
+            <form id="login-form" class="navbar-form navbar-right" role="login">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username">
+                    <input type="password" class="form-control" placeholder="Password">
+                </div>
+                <button type="submit" id="submit" class="btn btn-default" onclick="login()">Login</button>
+            </form>
+        </div>
+    </div>
+</nav>

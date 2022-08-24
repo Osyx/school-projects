@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title><h:outputText value="#{msg['job_app_title']}"/></title>
+    <h:outputScript src="https://www.w3schools.com/lib/w3.js"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="res/style.css" />
+</h:head>
+<f:view locale="#{languageBean.locale}">
+<h:body>
+    <ui:include src="navbar.xhtml"/>
+    <b:container>
+        <ui:fragment rendered="#{!recruitmentHandler.isRecruit()}">
+            <div id="info">
+                <h:link value="#{msg['error_no_permission']}"
+                        outcome="login" rendered="#{!recruitmentHandler.isApplicant()}">
+                    <f:param name="from" value="#{view.viewId}" />
+                </h:link>
+                <h:link value="#{msg['error_wrong_permission']}"
+                        outcome="login" rendered="#{recruitmentHandler.isApplicant()}">
+                    <f:param name="from" value="#{view.viewId}" />
+                </h:link>
+            </div>
+        </ui:fragment>
+        <ui:fragment rendered="#{recruitmentHandler.isRecruit()}">
+            <h:form id="appForm">
+                <b:row styleClass="rows">
+                    <b:column col-sm="10" offset="1">
+                        <b:selectOneMenu value="#{recruitmentHandler.searchSelection}" class="form-control" id="searchSelection">
+                            <ui:include src="selectSearch.xhtml"/>
+                            <f:ajax render="appForm"/>
+                        </b:selectOneMenu>
+                    </b:column>
+                </b:row>
+                <ui:fragment rendered="#{recruitmentHandler.searchSelection == 0}">
+
+                </ui:fragment>
+                <ui:fragment rendered="#{recruitmentHandler.searchSelection == 1}">
+                        <ui:include src="allApplications.xhtml" />
+                </ui:fragment>
+                <ui:fragment rendered="#{recruitmentHandler.searchSelection == 2}">
+                        <ui:include src="searchByName.xhtml" />
+                </ui:fragment>
+                <ui:fragment rendered="#{recruitmentHandler.searchSelection == 3}">
+                        <ui:include src="searchByExperience.xhtml" />
+                </ui:fragment>
+                <ui:fragment rendered="#{recruitmentHandler.searchSelection == 4}">
+                        <ui:include src="searchByAvailability.xhtml" />
+                </ui:fragment>
+            </h:form>
+
+            <div class="list-group col-sm-10 offset-sm-1">
+                <ui:repeat value="#{recruitmentHandler.jobApplications}" var="app">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4>#{app.person.name} #{app.person.surname}</h4>
+                            <h4>#{app.application.accepted}</h4>
+                            <small><h:outputText value="#{msg.registered}"/> #{app.application.date}</small>
+                        </div>
+                        <div class="justify-content-between">
+                            <p><h:outputText value="#{msg.email}"/> : #{app.person.email}</p>
+                        </div>
+                        <div class="justify-content-between">
+                            <h5><h:outputText value="#{msg.availabilities}"/></h5>
+                            <ui:repeat value="#{app.availabilities}" var="availability">
+                                <p><h:outputText value="#{msg['available_from']}"/> : #{availability.fromDate} &nbsp;&nbsp; <h:outputText value="#{msg['available_to']}"/> #{availability.toDate}</p>
+                            </ui:repeat>
+                        </div>
+                        <div class="justify-content-between">
+                            <h5><h:outputText value="#{msg.experiences}"/></h5>
+                            <ui:repeat value="#{app.experiences}" var="experience">
+                                <p><h:outputText value="#{msg['exp_of']}"/> #{experience.name} <h:outputText value="#{msg.for}"/> #{experience.yearsOfExperience} <h:outputText value="#{msg.years}"/></p>
+                            </ui:repeat>
+                        </div>
+                        <div class="justify-content-between">
+                            <ol class="nav-item" id="acceptDecline">
+                                <h:form styleClass="navbar-form">
+                                    <h:commandButton action="#{recruitmentHandler.acceptApplication(app.application.applicationId)}" value="#{msg.accept}" styleClass="btn btn-link nav-link" />
+                                    <h:commandButton action="#{recruitmentHandler.declineApplication(app.application.applicationId)}" value="#{msg.decline}" styleClass="btn btn-link nav-link" />
+                                </h:form>
+                            </ol>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+
+
+            <div class="col-sm-5 offset-sm-4">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1"><h:outputText value="#{msg.previous}"/></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#"><h:outputText value="#{msg.next}"/></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </ui:fragment>
+    </b:container>
+
+
+
+    <!-- the scripts that need to be present -->
+    <h:outputScript src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" />
+    <h:outputScript src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" />
+    <h:outputScript src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" />
+
+</h:body>
+</f:view>
+</html>

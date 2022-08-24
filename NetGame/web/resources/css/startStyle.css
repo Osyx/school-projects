@@ -1,0 +1,115 @@
+/* BASED ON: https://codepen.io/Varo/pen/gbZzgr */
+
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+html,
+body {
+    background: #e5e5e5;
+    font-family: "Lato", sans-serif;
+    margin: 0 auto;
+}
+::selection {
+    background: rgba(82, 179, 217, 0.3);
+    color: inherit;
+}
+
+h1{
+    color: #777;
+}
+
+.title {
+    color: #777;
+    font-size: 200%;
+    font-family: "Lato", sans-serif;
+}
+
+#join {
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* MESSAGE VIEW */
+
+.chat {
+    list-style: none;
+    background: none;
+    padding: 0 0 50px 0;
+    margin: 5px 0 10px;
+}
+.chat li {
+    padding: 0.5rem;
+    overflow: hidden;
+    display: flex;
+}
+
+.server .msg {
+    order: 1;
+    width: 100%;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: -1px 2px 0 #d4d4d4;
+    background: lightgrey;
+
+}
+
+/* FIXED AREAS */
+
+.inputarea {
+    position: relative;
+}
+
+input.chatarea {
+    position: relative;
+    margin-top: 5px;
+    top: 50%;
+    left: 34%;
+    width: 30%;
+    max-width: inherit;
+    height: 50px;
+    z-index: 99;
+    background: #fafafa;
+    border: none;
+    outline: none;
+    padding-left: 1%;
+    padding-right: 1%;
+    color: #666;
+    font-weight: 400;
+    box-shadow: 1px 2px 0 #d4d4d4;
+}
+
+.sendButton {
+    position: absolute;
+    right: 35%;
+    top: 19.5%;
+    width: 40px;
+    max-width: inherit;
+    height: 40px;
+    z-index: 99;
+    background: #777
+    url("https://github.com/google/material-design-icons/blob/master/content/1x_web/ic_send_white_36dp.png?raw=true")
+    no-repeat 60% 50%;
+    background-size: 60%;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 1200px) {
+
+    input.chatarea {
+        left: 34%;
+        right: 34%;
+    }
+
+    .sendButton {
+        right: 3%;
+    }
+}
